@@ -8,6 +8,15 @@ public class EdgeBrowserLaunch {
 		WebDriver driver =new EdgeDriver();
 driver.get("https://www.javatpoint.com/");
 driver.manage().window().maximize();
+String title=driver.getTitle();
+System.out.println(title);
+String Current_URL=driver.getCurrentUrl();
+System.out.println(Current_URL);
+String Handle_ID=driver.getWindowHandle();
+System.out.println(Handle_ID);
+String PageSource=driver.getPageSource();
+System.out.println(PageSource);
+driver.close();
 	}
 
 }
