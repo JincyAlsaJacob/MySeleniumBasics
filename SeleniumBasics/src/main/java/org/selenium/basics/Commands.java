@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class Commands {
 	public void verifyDemoWebShopRegister()
@@ -183,7 +184,50 @@ public void verifyIsDisplayed()
     System.out.println("Vote button is displayed or not :"+isVoteButtonIsDisplayed);
     driver.close();
 }
+public void verifyValuesFromDropdown()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/newtours/register.php");	
+	driver.manage().window().maximize();
+	WebElement Country_Dropdown=driver.findElement(By.xpath("//select[@name='country']"));
+    Select select =new Select(Country_Dropdown);
+   // select.selectByVisibleText("ANTARCTICA");
+   // select.selectByIndex(8);
+    select.selectByValue("BHUTAN");
+    WebElement First_SelectedCountryName=select.getFirstSelectedOption();
+    System.out.println(First_SelectedCountryName.getText());
+    }
 
+public void verifyTotalNumberofDropdownValues()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/newtours/register.php");	
+	driver.manage().window().maximize();
+	WebElement Country_Dropdown=driver.findElement(By.xpath("//select[@name='country']"));
+    Select select =new Select(Country_Dropdown);
+    List<WebElement> DropDownlist=select.getOptions();
+    System.out.println("Total no.of dropdown : "+DropDownlist.size());
+    
+}
+
+public void verifyMultipleOptionsFromdropdown()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/select-input.php");	
+	driver.manage().window().maximize();
+	WebElement Dropdown_MultiSelector=driver.findElement(By.xpath("//select[@id='multi-select-field']"));
+    Select select=new Select(Dropdown_MultiSelector);
+    boolean Selected_Options=select.isMultiple();
+    System.out.println("Check whether multiple values are selected :"+Selected_Options);
+    select.selectByIndex(2);
+    select.selectByIndex(0);
+    List<WebElement> ListofSelected_Options=select.getAllSelectedOptions();  
+    for(WebElement e:ListofSelected_Options)
+    {
+    	System.out.println(e.getText());
+    }
+	select.deselectByIndex(0);
+}
 	public static void main(String[] args) 
 	{
 		Commands obj=new Commands();
@@ -198,8 +242,10 @@ public void verifyIsDisplayed()
 		//obj.verifyGuru99Registration();
 		//obj.verifyIsSelected();
 		//obj.verifyIsEnabled();
-		obj.verifyIsDisplayed();
-		
+		//obj.verifyIsDisplayed();
+		//obj.verifyValuesFromDropdown();
+		//obj.verifyTotalNumberofDropdownValues();
+		obj.verifyMultipleOptionsFromdropdown();
 	}
 
 }

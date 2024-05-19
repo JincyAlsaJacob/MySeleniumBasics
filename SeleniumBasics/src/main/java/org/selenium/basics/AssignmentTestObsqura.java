@@ -1,8 +1,11 @@
 package org.selenium.basics;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 public class AssignmentTestObsqura {
 	public void verifySingleInputField()
 	{
@@ -92,6 +95,24 @@ public class AssignmentTestObsqura {
 		System.out.println(Submit_msg);
 	}
 	
+public void verifyColourFromDropdown()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/select-input.php");
+	driver.manage().window().maximize();
+	WebElement DropdownColor=driver.findElement(By.cssSelector("select#multi-select-field"));
+	Select select=new Select(DropdownColor);
+	//select.selectByVisibleText("Yellow");
+	//select.selectByValue("Red");
+	select.selectByIndex(2);
+	WebElement ColorSelectedFromDropDown=select.getFirstSelectedOption();
+	System.out.println("Selected Color : "+ColorSelectedFromDropDown.getText());
+    List<WebElement> NumberOfColors=select.getOptions();
+    System.out.println("Total no.of colors in dropdown : "+NumberOfColors.size());
+    
+}
+	
+
 
 	public static void main(String[] args) {
 		AssignmentTestObsqura obj=new AssignmentTestObsqura();
@@ -99,7 +120,9 @@ public class AssignmentTestObsqura {
 		//obj.verifyTwoInputField();
 		//obj.verifyCheckBoxDemo();
 		//obj.verifyRadioButtonDemo();
-		obj.verifyFormSubmit();
+		//obj.verifyFormSubmit();
+		obj.verifyColourFromDropdown();
+		
 
 	}
 
