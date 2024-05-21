@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 public class AssignmentTestObsqura {
 	public void verifySingleInputField()
@@ -128,9 +129,23 @@ public void verifyCustomerDelete()
 	alert.accept();
 	String PopupMessage2=alert.getText();
 	System.out.println("Message after clicking OK : "+PopupMessage2);
-	alert.accept();
-	
-	
+	alert.accept();		
+}
+public void verifyDragandDrop()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://selenium.qabible.in/drag-drop.php");
+	driver.manage().window().maximize();
+	WebElement Draggable_1=driver.findElement(By.xpath("//span[text()='Draggable n°1']"));
+	WebElement DropZone=driver.findElement(By.xpath("//div[@id='mydropzone']"));
+	Actions action=new Actions(driver);
+	action.dragAndDrop(Draggable_1, DropZone).build().perform();
+	WebElement Draggable_2=driver.findElement(By.xpath("//span[text()='Draggable n°2']"));
+	action.dragAndDrop(Draggable_2, DropZone).build().perform();
+	WebElement Draggable_3=driver.findElement(By.xpath("//span[text()='Draggable n°3']"));
+    action.dragAndDrop(Draggable_3, DropZone).build().perform();
+    WebElement Draggable_4=driver.findElement(By.xpath("//span[text()='Draggable n°4']"));
+    action.dragAndDrop(Draggable_4, DropZone).build().perform();
 }
 
 	public static void main(String[] args) {
@@ -141,7 +156,8 @@ public void verifyCustomerDelete()
 		//obj.verifyRadioButtonDemo();
 		//obj.verifyFormSubmit();
 		//obj.verifyColourFromDropdown();
-		obj.verifyCustomerDelete();
+		//obj.verifyCustomerDelete()
+          obj.verifyDragandDrop();
 
 	}
 
