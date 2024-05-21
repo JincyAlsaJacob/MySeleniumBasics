@@ -1,6 +1,7 @@
 package org.selenium.basics;
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -228,6 +229,53 @@ public void verifyMultipleOptionsFromdropdown()
     }
 	select.deselectByIndex(0);
 }
+
+public void verifySimpleAlert()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/alerts");	
+	driver.manage().window().maximize();
+	WebElement ClickMeButton=driver.findElement(By.xpath("//button[@id='alertButton']"));
+	ClickMeButton.click();
+	Alert alert=driver.switchTo().alert();
+	alert.accept();
+	
+}
+public void verifyConfirmationAlert()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/alerts");	
+	driver.manage().window().maximize();
+	WebElement Clickme_Button=driver.findElement(By.xpath("//button[@id='confirmButton']"));
+	Clickme_Button.click();
+	Alert alert=driver.switchTo().alert();
+	String PopUpMesssage=alert.getText();
+	System.out.println("Message : "+PopUpMesssage);
+	alert.accept();
+	WebElement ConfirmedMessage=driver.findElement(By.xpath("//span[@id='confirmResult']"));
+	String ConfirmtionMessageAfterOKSelect=ConfirmedMessage.getText();
+	System.out.println("ConfirmationMessageAfterSelectingOK : "+ConfirmtionMessageAfterOKSelect);
+	driver.close();
+}
+public void verifyPromptAlert()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/alerts");	
+	driver.manage().window().maximize();
+	WebElement ClickmeButton=driver.findElement(By.xpath("//button[@id='promtButton']"));
+	ClickmeButton.click();
+	Alert alert =driver.switchTo().alert();
+	String Poup_Messsage=alert.getText();
+	System.out.println("Popup Message : "+Poup_Messsage);
+	alert.sendKeys("Anitha");
+	alert.accept();
+	WebElement ConfirmedMessage=driver.findElement(By.xpath("//span[@id='promptResult']"));
+	String ConfirmtionMessageAfterOKSelect=ConfirmedMessage.getText();
+	System.out.println("ConfirmationMessageAfterSelectingOK : "+ConfirmtionMessageAfterOKSelect);
+	driver.close();
+}
+
+
 	public static void main(String[] args) 
 	{
 		Commands obj=new Commands();
@@ -245,7 +293,12 @@ public void verifyMultipleOptionsFromdropdown()
 		//obj.verifyIsDisplayed();
 		//obj.verifyValuesFromDropdown();
 		//obj.verifyTotalNumberofDropdownValues();
-		obj.verifyMultipleOptionsFromdropdown();
+		//obj.verifyMultipleOptionsFromdropdown();
+		//obj.verifySimpleAlert();
+		obj.verifyConfirmationAlert();
+		//obj.verifyPromptAlert();
+		
+		
 	}
 
 }

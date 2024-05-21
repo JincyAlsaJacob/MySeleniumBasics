@@ -1,6 +1,7 @@
 package org.selenium.basics;
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -112,7 +113,25 @@ public void verifyColourFromDropdown()
     
 }
 	
-
+public void verifyCustomerDelete()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/delete_customer.php");
+	driver.manage().window().maximize();
+	WebElement Customer_ID=driver.findElement(By.xpath("//input[@name='cusid']"));
+	Customer_ID.sendKeys("12");
+	WebElement SubmitButton=driver.findElement(By.xpath("//input[@name='submit']"));
+	SubmitButton.click();
+	Alert alert=driver.switchTo().alert();
+	String PopupMessage=alert.getText();
+	System.out.println("Popup Message : "+PopupMessage);
+	alert.accept();
+	String PopupMessage2=alert.getText();
+	System.out.println("Message after clicking OK : "+PopupMessage2);
+	alert.accept();
+	
+	
+}
 
 	public static void main(String[] args) {
 		AssignmentTestObsqura obj=new AssignmentTestObsqura();
@@ -121,8 +140,8 @@ public void verifyColourFromDropdown()
 		//obj.verifyCheckBoxDemo();
 		//obj.verifyRadioButtonDemo();
 		//obj.verifyFormSubmit();
-		obj.verifyColourFromDropdown();
-		
+		//obj.verifyColourFromDropdown();
+		obj.verifyCustomerDelete();
 
 	}
 
