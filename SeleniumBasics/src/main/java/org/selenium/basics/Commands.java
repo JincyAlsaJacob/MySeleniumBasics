@@ -61,10 +61,8 @@ public void verifyTotalNumberofTagsintheApplication()
 	List<WebElement> input_type=driver.findElements(By.tagName("input"));
 	int input_size= input_type.size();
 	System.out.println("Total no.of input tags are "+input_size);
-	
-	
-	
 }
+
 public void verifyDemoWebShopLoginusing_xPath()
 {
 	WebDriver driver= new ChromeDriver();
@@ -327,7 +325,7 @@ public void verifyDragAndOffest()
 	
 }
 
-public void verifyMouseOver()
+public void verifyMouseHover()
 {
 	WebDriver driver=new ChromeDriver();
 	driver.get("https://demoqa.com/menu/");	
@@ -395,9 +393,38 @@ public void verifyMultipleWindowHandling()
 		driver.switchTo().defaultContent(); 
 		driver.quit();
 	}
-	
-	
 }
+
+public void verifyDynamicTable()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://money.rediff.com/indices");	
+	driver.manage().window().maximize();
+	WebElement ShowMore_Button=driver.findElement(By.xpath("//a[@id='showMoreLess']"));
+	ShowMore_Button.click();
+	WebElement WebTable=driver.findElement(By.xpath("//table[@id='dataTable']//tbody"));
+	List<WebElement> Rows=WebTable.findElements(By.tagName("tr"));
+	int RowSize=Rows.size();
+	for(int i=0;i<RowSize;i++)
+	{
+		List<WebElement> Column=Rows.get(i).findElements(By.tagName("td"));
+		int ColumnSize=Column.size();
+		for(int j=0;j<ColumnSize;j++)
+		{
+			String CellValue=Column.get(j).getText();
+			if(CellValue.equals("S&P BSE 200"))
+			{
+				System.out.println("Previous Close Value is "+Column.get(1).getText());
+			}
+		}
+	}
+	WebElement RowOfTable=driver.findElement(By.xpath("//table[@id='dataTable']//tbody//tr[2]"));
+	System.out.println(RowOfTable.getText());
+	WebElement ColumnOfTable=driver.findElement(By.xpath("//table[@id='dataTable']//tbody//td[2]"));
+	System.out.println(ColumnOfTable.getText());
+	driver.close();
+}
+
 
 	public static void main(String[] args) 
 	{
@@ -424,10 +451,11 @@ public void verifyMultipleWindowHandling()
 		//obj.verifyDoubleClick();
 		//obj.verifyDragAndDrop();
 		//obj.verifyDragAndOffest();
-		//obj.verifyMouseOver();
+		//obj.verifyMouseHover();
 		//obj.verifyFileUpload();
 		//obj.verifyFrames();
-		obj.verifyMultipleWindowHandling();
+		//obj.verifyMultipleWindowHandling();
+		obj.verifyDynamicTable();
 		
 		
 	}
