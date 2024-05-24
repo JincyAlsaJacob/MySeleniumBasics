@@ -1,5 +1,7 @@
 package org.selenium.basics;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -335,7 +337,66 @@ public void verifyMouseOver()
 	action.moveToElement(MainItem_2MouseOver).build().perform();
 	WebElement SubList_MouseOver=driver.findElement(By.xpath("//a[text()='SUB SUB LIST »']"));
 	action.moveToElement(SubList_MouseOver).build().perform();
+}
+public void verifyFileUpload()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/test/upload/");	
+	driver.manage().window().maximize();
+	WebElement ChooseFile=driver.findElement(By.xpath("//input[@id='uploadfile_0']"));
+	ChooseFile.sendKeys("C:\\Users\\Jincy\\git\\MySeleniumBasics\\SeleniumBasics\\src\\main\\resources\\UserStory_Maxfest.docx");
+    WebElement CheckBox=driver.findElement(By.xpath("//input[@id='terms']"));
+    CheckBox.click();
+    WebElement Submit_Button=driver.findElement(By.xpath("//button[@id='submitbutton']"));
+    Submit_Button.click();
+    
+}
 
+public void verifyFrames()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demoqa.com/frames");	
+	driver.manage().window().maximize();
+	List<WebElement> No_ofFrameTags=driver.findElements(By.tagName("iframe"));
+	int tags=No_ofFrameTags.size();
+	System.out.println("No.of iframe tags = "+tags);
+    //driver.switchTo().frame(1);
+	//driver.switchTo().frame("frame1");
+	WebElement Frame1=driver.findElement(By.id("frame1"));
+	driver.switchTo().frame(Frame1);
+	WebElement TextOfframe=driver.findElement(By.id("sampleHeading")); 
+    System.out.println("Text of Frame : "+TextOfframe.getText());
+    driver.close();
+}
+public void verifyMultipleWindowHandling()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://demo.guru99.com/popup.php");	
+	driver.manage().window().maximize();
+	String ParentWindowHandle_ID=driver.getWindowHandle();
+	System.out.println("ParentWindowHandle_ID : "+ParentWindowHandle_ID);
+	WebElement Click_Button=driver.findElement(By.xpath("//a[text()='Click Here']"));
+	Click_Button.click();
+	Set<String> WindowHadleIDs=driver.getWindowHandles();
+	System.out.println("Window Handle Id's : "+WindowHadleIDs);
+	Iterator<String> value=	WindowHadleIDs.iterator();
+	while(value.hasNext())
+	{
+		String HandleID=value.next();
+		if(!HandleID.equals(ParentWindowHandle_ID))
+		{
+			driver.switchTo().window(HandleID);
+			WebElement Email=driver.findElement(By.xpath("//input[@name='emailid']"));
+			Email.sendKeys("ammu1@gmail.com");
+			WebElement Submit_Button=driver.findElement(By.xpath("//input[@name='btnLogin']"));
+			Submit_Button.click();
+			
+		}
+		driver.switchTo().defaultContent(); 
+		driver.quit();
+	}
+	
+	
 }
 
 	public static void main(String[] args) 
@@ -363,7 +424,10 @@ public void verifyMouseOver()
 		//obj.verifyDoubleClick();
 		//obj.verifyDragAndDrop();
 		//obj.verifyDragAndOffest();
-		obj.verifyMouseOver();
+		//obj.verifyMouseOver();
+		//obj.verifyFileUpload();
+		//obj.verifyFrames();
+		obj.verifyMultipleWindowHandling();
 		
 		
 	}

@@ -148,6 +148,37 @@ public void verifyDragandDrop()
     action.dragAndDrop(Draggable_4, DropZone).build().perform();
 }
 
+public void verifyNumberOfFrames()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://www.hyrtutorials.com/p/frames-practice.html");
+	driver.manage().window().maximize();
+	List<WebElement> FrameTags=driver.findElements(By.tagName("iframe"));
+	int No_ofFrames=FrameTags.size();
+	System.out.println("No. of Frames : "+No_ofFrames);
+	
+}
+public void verifyFrame1andDropDown()
+{
+	WebDriver driver=new ChromeDriver();
+	driver.get("https://www.hyrtutorials.com/p/frames-practice.html#google_vignette");
+	driver.manage().window().maximize();
+	WebElement TextBox=driver.findElement(By.id("name"));
+	TextBox.sendKeys("Selenium");
+	WebElement Frame1=driver.findElement(By.id("frm1"));
+	driver.switchTo().frame(Frame1);
+	WebElement CourseNameDropDown=driver.findElement(By.id("course"));
+	Select select=new Select(CourseNameDropDown);
+	select.selectByIndex(1);
+	driver.switchTo().defaultContent();
+	WebElement Frame2=driver.findElement(By.id("frm2"));
+	driver.switchTo().frame(Frame2);
+	WebElement MenuDropDown=driver.findElement(By.id("selectnav1"));
+	Select dropdown=new Select(MenuDropDown);
+	dropdown.selectByIndex(3);
+}
+
+
 	public static void main(String[] args) {
 		AssignmentTestObsqura obj=new AssignmentTestObsqura();
 		//obj.verifySingleInputField();
@@ -157,7 +188,9 @@ public void verifyDragandDrop()
 		//obj.verifyFormSubmit();
 		//obj.verifyColourFromDropdown();
 		//obj.verifyCustomerDelete()
-          obj.verifyDragandDrop();
+        //obj.verifyDragandDrop();
+		//obj.verifyNumberOfFrames();
+		obj.verifyFrame1andDropDown();
 
 	}
 
