@@ -394,7 +394,6 @@ public void verifyMultipleWindowHandling()
 		driver.quit();
 	}
 }
-
 public void verifyDynamicTable()
 {
 	WebDriver driver=new ChromeDriver();
