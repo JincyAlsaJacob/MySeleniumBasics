@@ -1,7 +1,11 @@
 package org.testngcommands;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -60,4 +64,39 @@ public class Commands extends BrowserLaunch {
 	    boolean isVoteButtonIsDisplayed=Vote_button.isDisplayed();
 	    Assert.assertTrue(isVoteButtonIsDisplayed, "Vote Button not displayed");
 	}
+	@Test
+	public void verifyJavascriptExecutor()
+	{
+		driver.get("https://demowebshop.tricentis.com/");
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("document.getElementById(\"newsletter-email\").value='anikha123@gmail.com'");
+		js.executeScript("document.getElementById(\"newsletter-subscribe-button\").click();");;
+	}
+	@Test
+	public void verifyVerticalScroll()
+	{
+		driver.get("https://demowebshop.tricentis.com/");
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+	}
+	@Test
+	public void verifyDemowebShopLoginUsingJavaScript()
+	{
+		driver.get("https://demowebshop.tricentis.com/login");
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("document.getElementById(\"Email\").value='anikha123@gmail.com'");
+		js.executeScript("document.getElementById(\"Password\").value='anik123asd'");
+		
+	}
+	@Test
+	public void verifyScrollInDragandDrop()
+	{
+		driver.get("https://demoqa.com/droppable");	
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,600)");
+		WebElement DragMe=driver.findElement(By.xpath("//div[@id='draggable']"));
+		WebElement DropHere=driver.findElement(By.xpath("//div[@id='simpleDropContainer']//div[@id='droppable']"));
+		Actions action=new Actions(driver);
+		action.dragAndDrop(DragMe, DropHere).build().perform();
+}
 }
