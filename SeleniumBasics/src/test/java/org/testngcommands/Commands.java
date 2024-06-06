@@ -1,11 +1,21 @@
 package org.testngcommands;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.time.Duration;
+import java.util.NoSuchElementException;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -70,7 +80,7 @@ public class Commands extends BrowserLaunch {
 		driver.get("https://demowebshop.tricentis.com/");
 		JavascriptExecutor js=(JavascriptExecutor)driver;
 		js.executeScript("document.getElementById(\"newsletter-email\").value='anikha123@gmail.com'");
-		js.executeScript("document.getElementById(\"newsletter-subscribe-button\").click();");;
+		js.executeScript("document.getElementById(\"newsletter-subscribe-button\").click()");;
 	}
 	@Test
 	public void verifyVerticalScroll()
@@ -82,10 +92,12 @@ public class Commands extends BrowserLaunch {
 	@Test
 	public void verifyDemowebShopLoginUsingJavaScript()
 	{
-		driver.get("https://demowebshop.tricentis.com/login");
+		driver.get("https://demowebshop.tricentis.com/");
 		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("document.querySelector('.ico-login').click()");
 		js.executeScript("document.getElementById(\"Email\").value='anikha123@gmail.com'");
 		js.executeScript("document.getElementById(\"Password\").value='anik123asd'");
+		js.executeScript("document.querySelector('.login-button').click()");
 		
 	}
 	@Test
@@ -99,4 +111,47 @@ public class Commands extends BrowserLaunch {
 		Actions action=new Actions(driver);
 		action.dragAndDrop(DragMe, DropHere).build().perform();
 }
+	@Test
+	public void verifyKeyboardEvents() throws AWTException
+	{
+		driver.get("https://demowebshop.tricentis.com/");
+		Robot robot=new Robot();
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_T);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		robot.keyRelease(KeyEvent.VK_T);
+	}
+	@Test
+    public void verifyWaits()
+	{
+		driver.get("https://demoqa.com/alerts");
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));   //driver waits for 20sec after loading the webpage
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("timerAlertButton")));  //checks whether the element is visible there
+		WebElement Clickme_Button=driver.findElement(By.id("timerAlertButton"));
+		Clickme_Button.click();
+		wait.until(ExpectedConditions.alertIsPresent());
+		Alert alert=driver.switchTo().alert();
+		alert.accept();
+	}
+	
+@Test
+    public void verifyFluentWait()
+    {
+    	driver.get("https://demoqa.com/alerts");
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+		FluentWait wait=new FluentWait(driver);
+		wait.withTimeout(Duration.ofSeconds(20));
+		wait.pollingEvery(Duration.ofSeconds(3));
+		wait.ignoring(NoSuchElementException.class);
+		WebElement Clickme_Button=driver.findElement(By.id("timerAlertButton"));
+		Clickme_Button.click();
+		wait.until(ExpectedConditions.alertIsPresent());
+		Alert alert=driver.switchTo().alert();
+		alert.accept();
+    }
+
+
+
 }

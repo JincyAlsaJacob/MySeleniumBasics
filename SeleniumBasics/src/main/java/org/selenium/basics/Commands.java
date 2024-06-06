@@ -146,8 +146,6 @@ public void verifyGuru99Registration()
 	ConfirmPassword_field.sendKeys("kumar@321");
 	WebElement Submit_button=driver.findElement(By.name("submit"));
 	Submit_button.click();
-	
-	
 }
 
 public void verifyIsSelected()
@@ -163,8 +161,6 @@ public void verifyIsSelected()
 	ismaleselected=gender_male.isSelected();
 	System.out.println("Male element after selected "+ismaleselected);
 	driver.close();
-
-	
 }
 public void verifyIsEnabled()
 {
@@ -198,7 +194,7 @@ public void verifyValuesFromDropdown()
     select.selectByValue("BHUTAN");
     WebElement First_SelectedCountryName=select.getFirstSelectedOption();
     System.out.println(First_SelectedCountryName.getText());
-    }
+}
 
 public void verifyTotalNumberofDropdownValues()
 {
@@ -209,7 +205,6 @@ public void verifyTotalNumberofDropdownValues()
     Select select =new Select(Country_Dropdown);
     List<WebElement> DropDownlist=select.getOptions();
     System.out.println("Total no.of dropdown : "+DropDownlist.size());
-    
 }
 
 public void verifyMultipleOptionsFromdropdown()
@@ -219,8 +214,8 @@ public void verifyMultipleOptionsFromdropdown()
 	driver.manage().window().maximize();
 	WebElement Dropdown_MultiSelector=driver.findElement(By.xpath("//select[@id='multi-select-field']"));
     Select select=new Select(Dropdown_MultiSelector);
-    boolean Selected_Options=select.isMultiple();
-    System.out.println("Check whether multiple values are selected :"+Selected_Options);
+   // boolean Selected_Options=select.isMultiple();
+    //System.out.println("Check whether multiple values are selected :"+Selected_Options);
     select.selectByIndex(2);
     select.selectByIndex(0);
     List<WebElement> ListofSelected_Options=select.getAllSelectedOptions();  
@@ -240,7 +235,6 @@ public void verifySimpleAlert()
 	ClickMeButton.click();
 	Alert alert=driver.switchTo().alert();
 	alert.accept();
-	
 }
 public void verifyConfirmationAlert()
 {
@@ -322,9 +316,7 @@ public void verifyDragAndOffest()
 	Actions action=new Actions(driver);
 	action.dragAndDropBy(DragMe, 50, 100).build().perform();
 	driver.close();
-	
 }
-
 public void verifyMouseHover()
 {
 	WebDriver driver=new ChromeDriver();
@@ -347,9 +339,7 @@ public void verifyFileUpload()
     CheckBox.click();
     WebElement Submit_Button=driver.findElement(By.xpath("//button[@id='submitbutton']"));
     Submit_Button.click();
-    
 }
-
 public void verifyFrames()
 {
 	WebDriver driver=new ChromeDriver();
