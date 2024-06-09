@@ -1,53 +1,53 @@
 package test_package;
 
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import automation_core.Base;
+import utilities.ExcelUtility;
 
 public class RegistrationPageTest extends Base{
 	@Test
-	public void verifyRegistrationPageTitle()
+	public void verifyRegistrationPageTitle() throws IOException
 	{
 		driver.get("https://demowebshop.tricentis.com/register");
 		String actual_title=driver.getTitle();
 		System.out.println("Title : "+actual_title);
-		String expected_title="Demo Web Shop. Register";
+		String expected_title=ExcelUtility.getStringData(0, 0, "RegistrationPage");
 		Assert.assertEquals(actual_title, expected_title, "INVALID TITLE");
 	}
 	@Test
-	public void verifyUserRegistration()
+	public void verifyUserRegistration() throws IOException
 	{
 		driver.get("https://demowebshop.tricentis.com/register");
 		WebElement gender_field=driver.findElement(By.id("gender-female"));
 		gender_field.click();
 		WebElement Firstname_field=driver.findElement(By.id("FirstName"));
-		Firstname_field.sendKeys("Fidah");
+		String firstname_excel=ExcelUtility.getStringData(0, 1, "RegistrationPage");
+		Firstname_field.sendKeys(firstname_excel);
 		WebElement Lastname_field=driver.findElement(By.id("LastName"));
-		Lastname_field.sendKeys("Kumar");
+		String lastname_excel=ExcelUtility.getStringData(0, 2, "RegistrationPage");
+		Lastname_field.sendKeys(lastname_excel);
 		WebElement Email_field=driver.findElement(By.id("Email"));
-		Email_field.sendKeys("fidah457@gmail.com");
+		String email_excel=ExcelUtility.getStringData(0, 3, "RegistrationPage");
+		Email_field.sendKeys(email_excel);
 		WebElement Password_field=driver.findElement(By.id("Password"));
-		Password_field.sendKeys("kumar@321");
+		String password_excel=ExcelUtility.getStringData(0, 4, "RegistrationPage");
+		Password_field.sendKeys(password_excel);
 		WebElement ConfirmPassword_field=driver.findElement(By.id("ConfirmPassword"));
-		ConfirmPassword_field.sendKeys("kumar@321");
+		String confirmpassword_excel=ExcelUtility.getStringData(0, 4, "RegistrationPage");
+		ConfirmPassword_field.sendKeys(confirmpassword_excel);
 		WebElement Register_button=driver.findElement(By.id("register-button"));
 		Register_button.click();
 		WebElement successful_message=driver.findElement(By.xpath("//div[@class='result']"));
 		String actual_message=successful_message.getText();
 		System.out.println("Actual Message : "+actual_message);
-		String expected_message= "Your registration completed";
+		String expected_message=ExcelUtility.getStringData(0, 5, "RegistrationPage");
 		Assert.assertEquals(actual_message, expected_message, "INVALID MAIL_ID");
-		WebElement Continue_button=driver.findElement(By.className("register-continue-button"));
-		Continue_button.click();
-		/*WebElement login_email=driver.findElement(By.xpath("//a[text()='fidah457@gmail.com']"));
-		String actual_mailID=login_email.getText();
-		System.out.println("Actual MailID :" +actual_mailID);
-		String expected_mailID="fidah457@gmail.com";
-		Assert.assertEquals(actual_mailID, expected_mailID, "INVALID MAIL_ID");*/
-		
 	}
 
 }
