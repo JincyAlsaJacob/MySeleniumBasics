@@ -53,8 +53,8 @@ public class Commands extends BrowserLaunch {
 		driver.get("https://demowebshop.tricentis.com/register");
 		WebElement gender_male=driver.findElement(By.xpath("//input[@id='gender-male']"));
 		ismaleselected=gender_male.isSelected();
-		Assert.assertFalse(ismaleselected, "Male Selected");
-		gender_male.click();
+	    Assert.assertFalse(ismaleselected, "Male Selected");
+	    gender_male.click();
 		ismaleselected=gender_male.isSelected();
 		Assert.assertTrue(ismaleselected, "Male not Selected");
 	}

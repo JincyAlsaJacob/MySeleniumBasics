@@ -9,10 +9,11 @@ import org.testng.annotations.Test;
 
 import automation_core.Base;
 import utilities.ExcelUtility;
+import utilities.RandomDataUtility;
 
 public class RegistrationPageTest extends Base{
 	@Test
-	public void verifyRegistrationPageTitle() throws IOException
+	public void verifyRegistrationPageTitle() 
 	{
 		driver.get("https://demowebshop.tricentis.com/register");
 		String actual_title=driver.getTitle();
@@ -21,26 +22,25 @@ public class RegistrationPageTest extends Base{
 		Assert.assertEquals(actual_title, expected_title, "INVALID TITLE");
 	}
 	@Test
-	public void verifyUserRegistration() throws IOException
+	public void verifyUserRegistration() 
 	{
 		driver.get("https://demowebshop.tricentis.com/register");
+		String firstname=RandomDataUtility.getFirstname();
+		String lastname=RandomDataUtility.getLastname();
+		String email_ID=firstname+"."+lastname+"@gmail.com";
+		String password=firstname+"."+lastname;
 		WebElement gender_field=driver.findElement(By.id("gender-female"));
 		gender_field.click();
 		WebElement Firstname_field=driver.findElement(By.id("FirstName"));
-		String firstname_excel=ExcelUtility.getStringData(0, 1, "RegistrationPage");
-		Firstname_field.sendKeys(firstname_excel);
+		Firstname_field.sendKeys(firstname);
 		WebElement Lastname_field=driver.findElement(By.id("LastName"));
-		String lastname_excel=ExcelUtility.getStringData(0, 2, "RegistrationPage");
-		Lastname_field.sendKeys(lastname_excel);
+		Lastname_field.sendKeys(lastname);
 		WebElement Email_field=driver.findElement(By.id("Email"));
-		String email_excel=ExcelUtility.getStringData(0, 3, "RegistrationPage");
-		Email_field.sendKeys(email_excel);
+		Email_field.sendKeys(email_ID);
 		WebElement Password_field=driver.findElement(By.id("Password"));
-		String password_excel=ExcelUtility.getStringData(0, 4, "RegistrationPage");
-		Password_field.sendKeys(password_excel);
+		Password_field.sendKeys(password);
 		WebElement ConfirmPassword_field=driver.findElement(By.id("ConfirmPassword"));
-		String confirmpassword_excel=ExcelUtility.getStringData(0, 4, "RegistrationPage");
-		ConfirmPassword_field.sendKeys(confirmpassword_excel);
+		ConfirmPassword_field.sendKeys(password);
 		WebElement Register_button=driver.findElement(By.id("register-button"));
 		Register_button.click();
 		WebElement successful_message=driver.findElement(By.xpath("//div[@class='result']"));
