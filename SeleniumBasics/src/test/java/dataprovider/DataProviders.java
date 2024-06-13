@@ -11,7 +11,7 @@ public class DataProviders {
 		data[0][1]="anik123asd";
 		
 		data[1][0]="anikha123@gmail.com";
-		data[1][1]="anik123asd12";
+		data[1][1]="123asw";
 		
 		data[2][0]="anikhaw1234@gmail.com";
 		data[2][1]="anik123asd12";

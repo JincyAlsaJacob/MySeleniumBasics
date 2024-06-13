@@ -9,10 +9,11 @@ import org.testng.annotations.Test;
 
 import automation_core.Base;
 import dataprovider.DataProviders;
+import listeners.RetryAnalyzer;
 import utilities.ExcelUtility;
 
 public class LoginPageTest extends Base{
-	@Test
+	@Test(retryAnalyzer=RetryAnalyzer.class)
 	public void verifyLoginPageTitle() 
 	{
 		driver.get("https://demowebshop.tricentis.com/login");
@@ -56,7 +57,7 @@ public class LoginPageTest extends Base{
 		String actual_message=loginfail_message_field.getText();
 		System.out.println("Actual Message : "+actual_message );
 		String expected_message=ExcelUtility.getStringData(1, 0, "LoginPage");
-		System.out.println("Expected Message : "+expected_message);
+		//System.out.println("Expected Message : "+expected_message);
 		Assert.assertEquals(actual_message,expected_message, "Succesful Login");
 	}
 

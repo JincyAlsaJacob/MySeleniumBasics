@@ -33,7 +33,7 @@ public class Base {
 			}
 			else 
 			{
-				throw new RuntimeException("Invalid Exception");
+				throw new RuntimeException("Invalid Browser");
 			}
 			driver.manage().window().maximize();
 		}
@@ -51,7 +51,6 @@ public class Base {
 			}
 			driver.close();
 		}
-		@AfterMethod
 		public void takeScreenshot(ITestResult result) throws IOException
 		{
 			TakesScreenshot takescreenshot = (TakesScreenshot)driver;     //Instantiation
